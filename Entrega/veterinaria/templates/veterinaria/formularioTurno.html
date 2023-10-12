@@ -1,0 +1,21 @@
+{% extends "veterinaria/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+
+<p>Reservá tu turno:</p>
+
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+
+        {{formulario1.as_table}}
+
+    </table>
+   
+    <input type="submit" value="Confirmar">
+
+</form>
+
+
+{% endblock %}

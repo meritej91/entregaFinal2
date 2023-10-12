@@ -1,0 +1,16 @@
+{% extends "veterinaria/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+
+<p>Estamos buscando la mascota {{nombre}}</p>
+
+{% if nombres %}
+
+<ul>
+    {% for nombre in nombres %}
+        <li>{{paciente.nombre}}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "veterinaria/padre.html" %}
+{% load static %}
+
+
+
+{% block contenidoQueCambia %}
+
+<!-- About-->
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-white mb-4">Turnos</h2>
+                <p class="text-white-50">
+                    Si querés hacer una consulta con nosotros, reservá tu turno para una mejor atención.
+                </p>
+            </div>
+        </div>
+        <img class="img-fluid" src="{% static 'veterinaria/src/assets/img/ipad.png' %}" alt="..." />
+    </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "veterinaria/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+
+    {% for pet in mascotas %}
+
+        <p>Nombre: {{pet.nombre}}</p>
+        
+        <p>Edad: {{pet.edad}}</p>
+        
+        <p>Especie: {{pet.especie}}</p>
+        
+        <p>Raza: {{pet.raza}}</p>
+
+    
+    <button>
+        <a href="{% url 'deletePaciente' pet.nombre %}">Eliminar mascota</a>
+    </button>
+
+    * * * * * * *
+
+    {% endfor %}
+
+    <br>
+    
+    <a href="{%url 'createPaciente' %}">Crear paciente</a>
+
+{% endblock %}

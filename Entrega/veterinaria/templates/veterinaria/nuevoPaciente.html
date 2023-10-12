@@ -1,0 +1,21 @@
+{% extends "veterinaria/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+
+<p>Ingresar paciente nuevo:</p>
+
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+
+        {{formulario2.as_table}}
+
+    </table>
+   
+    <input type="submit" value="Confirmar">
+
+</form>
+
+
+{% endblock %}

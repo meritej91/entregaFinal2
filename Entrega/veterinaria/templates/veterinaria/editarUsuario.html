@@ -1,0 +1,19 @@
+{% extends "veterinaria/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+
+<p>Editar usuario:</p>
+
+
+<form action="" method="POST"> {% csrf_token %}
+
+    {{formulario.as_p}}
+
+    <button type="submit">Editar</button>
+
+</form>
+
+
+
+
+{% endblock %}
