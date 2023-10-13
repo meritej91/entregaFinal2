@@ -31,8 +31,9 @@ def logIn(request):
 
 
 def registrar(request):
+    
+    form = UserCreationForm(request.POST)
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]
             form.save()
