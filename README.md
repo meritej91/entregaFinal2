@@ -10,3 +10,5 @@ Si ya posee un usuario, puede inciar sesión y hacer uso de la plataforma.
 
 Superuser: meritej
 Password: 123456
+
+Link del video demostrativo: https://youtu.be/NT816f7Pz5o
