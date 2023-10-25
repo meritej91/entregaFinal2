@@ -16,6 +16,14 @@ class Turno(models.Model):
     dia = models.DateField(default=0, max_length=20)
     consulta = models.CharField(default=0, max_length=100)
 
+class Especialista(models.Model):
+    apellido = models.CharField(max_length=20)
+    nombre = models.CharField(max_length=20)
+    especialidad = models.CharField(max_length=30)
 
 
+class Cirugia(models.Model):
+    tipo_cirugia = models.CharField(max_length=50)
+    costo = models.IntegerField()  
 
+    
