@@ -2,11 +2,47 @@ from django.shortcuts import render
 from django.http import HttpResponse 
 from veterinaria.models import *
 from veterinaria.forms import *
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
+from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 
 def inicio(request):
     return render(request, "veterinaria/inicio.html")
+
+def especialistas(request):
+    if request.method == "POST":
+
+        formulario1 = formularioEspecialista(request.POST)
+        
+        if formulario1.is_valid():
+            info = formulario1.cleaned_data
+            turno = Especialista(apellido=info["apellido"], nombre=info["nombre"], especie=info["especie"], dia=info["dia"], consulta=info["consulta"])
+            turno.save()
+
+            return render(request, "veterinaria/inicio.html")
+        
+    else:
+        formulario1 = formularioEspecialista()
+
+    return render(request, "veterinaria/especialistas.html", {"formulario1": formulario1})
+
+def cirugias(request):
+    if request.method == "POST":
+
+        formulario1 = formularioCirugia(request.POST)
+        
+        if formulario1.is_valid():
+            info = formulario1.cleaned_data
+            turno = Cirugia(apellido=info["apellido"], nombre=info["nombre"], especie=info["especie"], dia=info["dia"], consulta=info["consulta"])
+            turno.save()
+
+            return render(request, "veterinaria/inicio.html")
+        
+    else:
+        formulario1 = formularioCirugia()
+
+    return render(request, "veterinaria/cirugias.html", {"formulario1": formulario1})
 
 def logIn(request):
     if request.method == "POST":
@@ -31,19 +67,18 @@ def logIn(request):
 
 
 def registrar(request):
-    
-    form = UserCreationForm(request.POST)
+    form = UserRegisterForm(request.POST)
     if request.method == "POST":
         if form.is_valid():
             username = form.cleaned_data["username"]
             form.save()
             return render(request, "veterinaria/inicio.html", {"mensaje": "El usuario ha sido creado."})
         else:
-            form = UserCreationForm()
+            form = UserRegisterForm()
     
     return render(request, "veterinaria/registrar.html", {"formulario":form})
 
-
+@login_required
 def editarUsuario(request):
 
     usuario = request.user
@@ -88,19 +123,19 @@ def resultados(request):
 def formTurno(request):
     if request.method == "POST":
 
-        form1 = formularioTurno(request.POST)
+        formulario1 = formularioTurno(request.POST)
         
-        if form1.is_valid():
-            info = form1.cleaned_data
+        if formulario1.is_valid():
+            info = formulario1.cleaned_data
             turno = Turno(apellido=info["apellido"], nombre=info["nombre"], especie=info["especie"], dia=info["dia"], consulta=info["consulta"])
             turno.save()
 
             return render(request, "veterinaria/inicio.html")
         
     else:
-        form1 = formularioTurno()
+        formulario1 = formularioTurno()
 
-    return render(request, "veterinaria/formularioTurno.html", {"formulario1": form1})
+    return render(request, "veterinaria/formularioTurno.html", {"formulario1": formulario1})
 
 def formPaciente(request):
     if request.method == "POST":
@@ -157,7 +192,7 @@ def updatePaciente(request, pacienteNombre):
     paciente = Paciente.objects.get(nombre=pacienteNombre)
     if request.method == "POST":
 
-        form4 = formularioPaciente(request.POST)
+        form4 = formEditar(request.POST)
         
         if form4.is_valid():
             info = form4.cleaned_data
@@ -171,6 +206,20 @@ def updatePaciente(request, pacienteNombre):
             return render(request, "veterinaria/inicio.html")
         
     else:
-        form4 = formularioPaciente(initial={"nombre":paciente.nombre,"edad":paciente.edad, "especie":paciente.especie, "raza":paciente.raza})
+        form4 = formEditar(initial={"nombre":paciente.nombre,"edad":paciente.edad, "especie":paciente.especie, "raza":paciente.raza})
 
     return render(request, "veterinaria/editarPaciente.html", {"formulario4": form4, "nombre":pacienteNombre})
+
+@login_required
+def agregarAvatar(request):
+    if request.method == "POST":
+        form = AvatarFormulario(request.POST, request.FILES)
+        if form.is_valid():
+            usuarioActual = User.objects.get(usuario=request.user)
+            avatar = Avatar(usuario=usuarioActual, imagen=form.cleaned_data["imagen"])
+            avatar.save()
+            return render(request, "veterinaria/inicio.html")
+        
+    else:
+        form = AvatarFormulario()
+    return render(request, "veterinaria/agregarAvatar.html", {"formulario":form})

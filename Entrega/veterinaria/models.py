@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Paciente(models.Model):
@@ -13,7 +14,7 @@ class Turno(models.Model):
     apellido = models.CharField(default=0, max_length=20)
     nombre = models.CharField(default=0, max_length=20)
     especie = models.CharField(default=0, max_length=20)
-    dia = models.DateField(default=0, max_length=20)
+    dia = models.CharField(max_length=50)
     consulta = models.CharField(default=0, max_length=100)
 
 class Especialista(models.Model):
@@ -26,4 +27,7 @@ class Cirugia(models.Model):
     tipo_cirugia = models.CharField(max_length=50)
     costo = models.IntegerField()  
 
-    
+
+class Avatar(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to="avatares", null=True, blank=True)

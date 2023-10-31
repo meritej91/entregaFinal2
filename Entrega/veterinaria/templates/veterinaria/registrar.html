@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paciente Nuevo</title>
-</head>
+{% extends "veterinaria/padre.html" %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+
 <body>
     <div class="row gx-0 justify-content-center">
         <div class="col-lg-6"><img class="img-fluid" src="{% static 'veterinaria/src/assets/img/demo-image-02.jpg' %}" alt="..." /></div>
@@ -31,4 +28,5 @@
 
 
 </body>
-</html>
+
+{% endblock %}

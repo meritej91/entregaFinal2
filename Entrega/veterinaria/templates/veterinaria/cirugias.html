@@ -1,0 +1,22 @@
+{% extends "veterinaria/padre.html" %}
+{% load static %}
+{% block contenidoQueCambia %}
+
+
+<p>Consulta por cirugías</p>
+
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+
+        {{formulario1.as_table}}
+
+    </table>
+   
+    <input type="submit" value="Consultar">
+
+</form>
+
+
+{% endblock %}
